@@ -1,0 +1,43 @@
+<template>
+    
+    <lightning-tabset>
+        <lightning-tab label="New Voucher">
+        <div class="slds-m-around_medium">
+            <lightning-record-form object-api-name="Voucher__c" onsuccess={showNotification} onerror={showError} fields={fields}></lightning-record-form>
+        </div>
+        </lightning-tab>
+
+        <lightning-tab label="List of Vouchers">
+            
+                
+                    <lightning-datatable
+                        key-field="Id"
+                        data={vouchers.data}
+                        columns={columns} onrowaction={handleRowActions}></lightning-datatable>
+                
+            
+            
+        </lightning-tab>
+        <div if:true={isEditForm} class="slds-theme_default">
+            <lightning-record-edit-form layout-type="Full" record-id={currentRecordId}
+                object-api-name="Voucher__c"  onsuccess={showNotificationUpdate} onerror={showErrorUpdate}>
+                <lightning-output-field field-name="Name"></lightning-output-field>
+                <lightning-input-field field-name="Name"></lightning-input-field>
+                <lightning-input-field field-name="Voucher_Id__c"></lightning-input-field>
+                <lightning-input-field field-name="Voucher_Cost__c"></lightning-input-field>
+                <lightning-input-field field-name="Validity__c"></lightning-input-field>
+                <lightning-input-field field-name="Certification__c"></lightning-input-field>
+                <lightning-input-field field-name="Active__c"></lightning-input-field>
+                <lightning-input-field field-name="Comments__c"></lightning-input-field>
+                <div style="text-align:center;">
+                    <lightning-button class="slds-m-top_small" variant="destructive-text"
+                        type="submit" label="Update Record" ></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+            <br>
+        </div>
+        
+    </lightning-tabset>
+    
+
+</template>

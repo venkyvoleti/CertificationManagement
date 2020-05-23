@@ -1,0 +1,45 @@
+<template>
+    
+    <lightning-tabset>
+        <lightning-tab label="Add certificate">
+            <lightning-record-edit-form object-api-name="Certification__c">
+                <div class="slds-m-around_medium">
+                    <lightning-card title="Add Certificate" icon-name="action:description"></lightning-card>
+                    <lightning-input name="Name" label="Certification Name" onchange={inputChange} placeholder="Enter Certification name" required></lightning-input>
+                    <lightning-input name="Id" label="Certification ID" onchange={inputChange} placeholder="Enter certification ID"></lightning-input>
+                    <lightning-input name="Comments" label="Comments" placeholder="Enter any comments here" onchange={inputChange}></lightning-input>
+            </div>
+            <lightning-button variant="success" label="Add Certification" title="Successful action" onclick={addCertificate} class="slds-m-left_x-small"></lightning-button>
+        </lightning-record-edit-form>
+        </lightning-tab>
+
+        <lightning-tab label="List of certificates">
+            
+                
+                    <lightning-datatable
+                        key-field="Id"
+                        data={certifications.data}
+                        columns={columns} onrowaction={handleRowActions}></lightning-datatable>
+                
+            
+            
+        </lightning-tab>
+        <div if:true={isEditForm} class="slds-theme_default">
+            <lightning-record-edit-form layout-type="Full" record-id={currentRecordId}
+                object-api-name="Certification__c"  onsuccess={showNotificationUpdate} onerror={showErrorUpdate}>
+                <lightning-output-field field-name="Name"></lightning-output-field>
+                <lightning-input-field field-name="Name"></lightning-input-field>
+                <lightning-input-field field-name="Cert_Id__c"></lightning-input-field>
+                <lightning-input-field field-name="Comments__c"></lightning-input-field>
+                <div style="text-align:center;">
+                    <lightning-button class="slds-m-top_small" variant="destructive-text"
+                        type="submit" label="Update Record" ></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+            <br>
+        </div>
+        
+    </lightning-tabset>
+    
+
+</template>

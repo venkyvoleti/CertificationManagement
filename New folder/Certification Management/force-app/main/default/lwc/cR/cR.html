@@ -1,0 +1,44 @@
+<template>
+    
+    <lightning-tabset>
+        <lightning-tab label="New Certification Request">
+            <lightning-record-form object-api-name="Certification_Request__c" onsuccess={showNotification} 
+            onerror={showError} fields={fields}></lightning-record-form>
+        </lightning-tab>
+        <lightning-tab label="List of Certification Requests">
+            
+                
+            <lightning-datatable
+                key-field="Id"
+                data={certReqs.data}
+                columns={columns} onrowaction={handleRowActions}></lightning-datatable>
+        
+    
+    
+</lightning-tab>
+<div if:true={isEditForm} class="slds-theme_default">
+    <lightning-record-edit-form layout-type="Full" record-id={currentRecordId}
+        object-api-name="Certification_Request__c" onsuccess={showNotificationUpdate} onerror={showErrorUpdate}>
+        <lightning-output-field field-name="Name"></lightning-output-field>
+        <lightning-input-field field-name="Name"></lightning-input-field>
+        <lightning-input-field field-name="Certification__c"></lightning-input-field>
+        <lightning-input-field field-name="Due_Date__c"></lightning-input-field>
+        <lightning-input-field field-name="Employee__c"></lightning-input-field>
+        <lightning-input-field field-name="Employee_Email__c"></lightning-input-field>
+        <lightning-input-field field-name="Status__c"></lightning-input-field>
+        <lightning-input-field field-name="Comments__c"></lightning-input-field>
+        
+        <div style="text-align:center;">
+            <lightning-button class="slds-m-top_small" variant="destructive-text"
+                type="submit" label="Update Record"></lightning-button>
+        </div>
+    </lightning-record-edit-form>
+    <br>
+</div>
+ 
+        
+        
+    </lightning-tabset>
+    
+ 
+</template>

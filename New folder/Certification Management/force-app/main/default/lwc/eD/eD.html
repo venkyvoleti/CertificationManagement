@@ -1,0 +1,53 @@
+<template>
+    
+    <lightning-tabset>
+        <lightning-tab label="New Employee">
+            <lightning-record-edit-form object-api-name="Employee__c">
+                <div class="slds-m-around_medium">
+                    <lightning-card title="Add Employee" icon-name="action:user"></lightning-card>
+                    <lightning-input name="Name" label="Employee Name" onchange={inputChange} placeholder="Enter employee name" required></lightning-input>
+                    <lightning-input name="Id" label="Employee ID" onchange={inputChange} placeholder="Enter employee ID"></lightning-input>
+                    <lightning-input type="email" name="Email" label="Employee Email" onchange={inputChange} placeholder="Enter employee Email"></lightning-input>
+                    <lightning-input name="PrimarySkill" label="Primary Skill" onchange={inputChange} placeholder="Enter employee Primary Skill"></lightning-input>
+                    <lightning-input name="SecondarySkill" label="Secondary Skill" onchange={inputChange} placeholder="Enter Employee Secondary Skill"></lightning-input>
+                    <lightning-input type="number" name="Experience" label="Experience" placeholder="Enter Employee Experience here in years complted" onchange={inputChange}></lightning-input>
+                    <lightning-input name="Comments" label="Comments" placeholder="Enter any comments here" onchange={inputChange}></lightning-input>
+            </div>
+            <lightning-button variant="success" label="Add Employee" title="Successful action" onclick={addEmployee} class="slds-m-left_x-small"></lightning-button>
+        </lightning-record-edit-form>
+        </lightning-tab>
+
+        <lightning-tab label="List of Employees">
+            
+                
+                    <lightning-datatable
+                        key-field="Id"
+                        data={employees.data}
+                        columns={columns} onrowaction={handleRowActions}></lightning-datatable>
+                
+            
+            
+        </lightning-tab>
+        <div if:true={isEditForm} class="slds-theme_default">
+            <lightning-record-edit-form layout-type="Full" record-id={currentRecordId}
+                object-api-name="Employee__c"  onsuccess={showNotificationUpdate} onerror={showErrorUpdate}>
+                <lightning-output-field field-name="Name"></lightning-output-field>
+                <lightning-input-field field-name="Name"></lightning-input-field>
+                <lightning-input-field field-name="Emp_ID__c"></lightning-input-field>
+                <lightning-input-field field-name="Email__c"></lightning-input-field>
+                <lightning-input-field field-name="Primary_Skill__c"></lightning-input-field>
+                <lightning-input-field field-name="Secondary_Skill__c"></lightning-input-field>
+                <lightning-input-field field-name="Experience__c"></lightning-input-field>
+                <lightning-input-field field-name="Comments__c"></lightning-input-field>
+                <div style="text-align:center;">
+                    <lightning-button class="slds-m-top_small" variant="destructive-text"
+                        type="submit" label="Update Record" ></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+            <br>
+        </div>
+        
+    </lightning-tabset>
+    
+
+</template>
